@@ -1,0 +1,14 @@
+bootRepackage.enabled = true
+
+jar {
+    baseName = 'example-service'
+}
+
+springBoot {
+    executable = true
+}
+dependencies {
+    compile ("org.projectlombok:lombok")
+    compile ("org.springframework.boot:spring-boot-starter-actuator")
+    
+}

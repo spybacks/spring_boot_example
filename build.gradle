@@ -1,0 +1,67 @@
+buildscript {
+    ext {
+        springBootVersion = '1.4.6.RELEASE'
+        springVersion = '4.3.10.RELEASE'
+        mySqlVersion = '5.1.44'
+        hikariCPVersion = '2.7.4'
+        amazonAwsSdkVersion = '1.11.250'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+allprojects {
+    apply plugin: 'eclipse'
+}
+
+subprojects {
+
+    apply plugin: 'java'
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'org.springframework.boot'
+
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+    eclipse {
+        project {
+
+            natures.clear()
+            natures 'org.eclipse.buildship.core.gradleprojectnature', 'org.eclipse.jdt.core.javanature'
+            buildCommand 'org.eclipse.buildship.core.gradleprojectbuilder'
+        }
+
+    }
+
+    repositories {
+        mavenCentral()
+    }
+    configurations {
+        compile.exclude module: "spring-boot-starter-tomcat"
+    }
+
+    dependencies {
+
+        compile("org.springframework.boot:spring-boot-starter-web:${springBootVersion}") {
+            exclude group: "org.springframework.boot", module: "tomcat-embed-websocket"
+        }
+        compile("org.springframework.boot:spring-boot-starter-undertow:${springBootVersion}")
+        compile("org.springframework.boot:spring-boot-starter-actuator:${springBootVersion}")
+
+        compile("redis.clients:jedis:2.9.0")
+
+        compile("com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.8.9")
+        compile("org.projectlombok:lombok:1.16.18")
+
+        testCompile("junit:junit")
+        compile('org.springframework.boot:spring-boot-starter-test')
+
+        testCompile 'junit:junit:4.12'
+    }
+}
