@@ -1,6 +1,6 @@
 # AWS
 
-``` bash
+
 # spring boot gradle docker simple example
 # with proxy based on ngnix
 # the service will work as localhost:9091/version
